@@ -1,10 +1,10 @@
 Package: txtplot
 Type: Package
 Title: Text based plots
-Version: 1.0-3
-Date: 2012-07-25
-Author: Bjoern Bornkamp
-Maintainer: Bjoern Bornkamp <bbnkmp@gmail.com>
+Version: 1.0-4
+Date: 2020-03-08
+Authors@R: person("Bjoern", "Bornkamp", email = "bbnkmp@mail.de", comment = c(ORCID = "0000-0002-6294-8185"),
+                  role = c("aut", "cre"))
 Description: Provides functions to produce rudimentary ascii graphics
         directly in the terminal window. Provides a basic plotting
         function (and equivalents of curve, density, acf and barplot)

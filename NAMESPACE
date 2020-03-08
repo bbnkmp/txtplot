@@ -1,1 +1,3 @@
+importFrom("grDevices", "boxplot.stats")
+importFrom("stats", "acf", "density", "na.fail")
 export(txtplot, txtdensity, txtcurve, txtacf, txtbarchart, txtboxplot)
