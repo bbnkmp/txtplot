@@ -120,5 +120,13 @@ txtbarchart(x, pch = "*", width = round(options()$width*0.8),
   x <- factor(c("orange", "orange", "red", "green", "green", "red",
                "yellow", "purple", "purple", "orange"))
   txtbarchart(x)
+
+  ## text based boxplots
+  rand1 <- rnorm(100, 1, 2)
+  rand2 <- rnorm(50, 2, 2)
+  rand3 <- rnorm(50, 2, 5)
+  txtboxplot(rand1)
+  txtboxplot(rand1, rand2, rand3)
+
 }
 \keyword{ hplot }
