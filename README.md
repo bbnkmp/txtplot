@@ -1,9 +1,8 @@
 # txtplot
 Text based plots in R. Some examples
 
-
+Basic plotting function
 ```r
-## basic plotting function
 require(stats)
 txtplot(cars[,1], cars[,2])
 ```
@@ -26,8 +25,8 @@ txtplot(cars[,1], cars[,2])
          5           10           15          20           25   
 
 ```
+Can include axis labels when desired
 ```r
-## can include axis labels when desired
 txtplot(cars[,1], cars[,2], xlab = "speed", ylab = "distance")
 ```
 ```
@@ -48,8 +47,8 @@ e     |         *      *  * *  * *  *                          |
            5          10           15          20          25   
                                 speed                           
 ```
+Text based density plot
 ```r
-## text based density plot
 txtdensity(rnorm(500))
 ```
 ```
@@ -70,8 +69,8 @@ txtdensity(rnorm(500))
     +-----------+--------------+-------------+--------------+--+
                -2              0             2              4   
 ```
+Text based plotting of functions
 ```r
-## text based plotting of functions
 txtcurve(x/(x+1), 0, 4, xlab = "Emax model")
 ```
 ```
@@ -92,8 +91,8 @@ txtcurve(x/(x+1), 0, 4, xlab = "Emax model")
        0            1            2             3            4   
                              Emax model                         
 ```
+Text based acf
 ```r
-## text based acf
 txtacf(rnorm(100))
 ```
 ```
@@ -114,8 +113,8 @@ txtacf(rnorm(100))
      +--+------------+------------+------------+------------+--+
         0            5           10           15           20   
 ```
+Text based barchart
 ```r
-## text based barchart
 x <- factor(c("orange", "orange", "red", "green", "green", "red",
              "yellow", "purple", "purple", "orange"))
 txtbarchart(x)
@@ -138,8 +137,8 @@ txtbarchart(x)
       1            2             3             4            5   
 Legend: 1=green, 2=orange, 3=purple, 4=red, 5=yellow
 ```
+Text based boxplots
 ```r
-## text based boxplots
 rand1 <- rnorm(100, 1, 2)
 rand2 <- rnorm(50, 2, 2)
 rand3 <- rnorm(50, 2, 5)
