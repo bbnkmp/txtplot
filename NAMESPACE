@@ -1,0 +1,1 @@
+export(txtplot, txtdensity, txtcurve, txtacf, txtbarchart, txtboxplot)
