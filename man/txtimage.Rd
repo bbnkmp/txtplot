@@ -6,7 +6,7 @@
 %% TODO: ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-  txtimage(x, width, height, alphabet, yaxis, image.transpose, span, ...)
+  txtimage(x, width, height, alphabet, yaxis, image.transpose)
 }
 \arguments{
   \item{x}{numeric matrix containing values to be plotted (NAs are allowed)}
@@ -22,11 +22,9 @@
   \item{image.transpose}{
     whether to draw rows of the matrix horizontally, like \code{\link{image}} does
   }
-  \item{span}{passed to \code{\link{loess}} when resampling}
-  \item{\dots}{passed to \code{\link{loess}} when resampling}
 }
 \details{
-  %TODO: make sure to mention loess
+  %TODO: make sure to mention fft
 }
 \value{
   The function is called for its side effect of printing the textual

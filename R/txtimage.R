@@ -2,23 +2,13 @@
 txtimage <- function(
   x, width, height,
   alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  yaxis = c('up', 'down'), image.transpose = T, span = .1, ...
+  yaxis = c('up', 'down'), image.transpose = T
 ) {
   if (image.transpose) x <- t(x)
   if (missing(width)) width <- min(getOption('width'), ncol(x))
   if (missing(height)) height <- min(width * .25, ncol(x))
   if (width != ncol(x) || height != nrow(x)) { # must resample x to specified size
-    df <- data.frame(
-      x = as.vector(x),
-      # i, j \in [0; 1]
-      i = as.vector(row(x) - 1)/(nrow(x) - 1),
-      j = as.vector(col(x) - 1)/(ncol(x) - 1)
-    )
-    newdf <- expand.grid(
-      i = seq(0, 1, length = height),
-      j = seq(0, 1, length = width)
-    )
-    x <- predict(loess(x ~ i * j, df, span = span, ...), newdf)
+    x <- Mod(fft(fft(x)[1:height, 1:width], inverse = T))
   }
   if (match.arg(yaxis) == 'up') x <- x[height:1,]
 
