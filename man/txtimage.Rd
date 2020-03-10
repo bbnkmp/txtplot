@@ -1,5 +1,4 @@
 % vi:ts=2 et:
-\encoding{UTF-8}
 \name{txtimage}
 \alias{txtimage}
 \title{Display a Text Image of a Matrix}
@@ -23,10 +22,10 @@
     of rows in \code{z}, whichever is less
   }
   \item{yaxis}{
-    direction of the Y axis, defaults to 'up' like in \code{\link{image}}
+    direction of the Y axis, defaults to 'up' like in \code{image}
   }
   \item{image.transpose}{
-    whether to draw rows of the matrix horizontally, like \code{\link{image}} does
+    whether to draw rows of the matrix horizontally, like \code{image} does
   }
   \item{na.char}{
     character to substitute for NAs (if any)
@@ -38,34 +37,29 @@
   }
 }
 \details{
-  By default, \code{\link{txtplot}} mimics the behaviour of
-  \code{\link{image}}, drawing the rows of the matrix along the x axis
-  and making the y values grow from bottom to top of the plot. The
-  function can be made to mimic matrix \code{\link{print}} instead (rows
-  arranged vertically from top to bottom) by specifying \code{yaxis}
-  and \code{image.transpose} arguments.
+  By default, \code{txtimage} mimics the behaviour of \code{image},
+  drawing the rows of the matrix along the x axis and making the y values
+  grow from bottom to top of the plot. The function can be made to mimic
+  matrix \code{print} instead (rows arranged vertically from top to
+  bottom) by specifying \code{yaxis} and \code{image.transpose} arguments.
 
-  If requested \code{width} or \code{height} is less than dimensions of
-  the matrix, it is resampled using \code{\link{fft}} by decimating the
+  If requested \code{width} or \code{height} is less than dimensions
+  of the matrix, it is resampled using \code{fft} by decimating the
   unnecessary high frequencies in the frequency domain and performing
   the inverse transformation.
 }
 \value{
   The function is called for its side effect of printing the textual
-  plot on the R console using \code{\link{cat}}, but it also invisibly
+  plot on the R console using \code{cat}, but it also invisibly
   returns the resulting character matrix.
 }
 \author{
   Ivan Krylov
 }
 \seealso{
-  \code{\link{image}}
+  \code{image}
 }
 \examples{
   txtimage(datasets::volcano)
-  \dontshow{ # FIXME: LaTeX vs Unicode
-    txtimage(datasets::volcano, alphabet = ' ░▒▓█')
-  }
 }
 \keyword{hplot}
-\keyword{print}
