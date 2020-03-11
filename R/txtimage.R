@@ -19,8 +19,10 @@ txtimage <- function(
 
   if (match.arg(yaxis) == 'up') z <- z[height:1,]
 
-  indices <- (z - min(z, na.rm = TRUE))/diff(range(z, na.rm = TRUE)) # \in [0;1]
-  indices <- 1 + indices * (length(alphabet) - 1) # \in [1; length(alphabet)]
+  indices <- ceiling((z - min(z, na.rm = TRUE))/diff(range(z, na.rm = TRUE)) * length(alphabet))
+  # NB: we have rescaled to [0; length(alphabet)], but the only zeroes correspond to
+  # points exactly equal to min(z). Let's manually reassign them to the lowest alphabet character.
+  indices[indices == 0] <- 1
 
   if (na.char %in% alphabet && any(is.na(indices)))
     warning("NAs indistinguishable from values in the plot")
