@@ -23,3 +23,12 @@ txtplot(runif(10000,0,115000),100001:110000)
 txtplot(runif(10000,-115000,0), seq(1,9,length=10000))
 txtboxplot(runif(10000,0,115000))
 txtboxplot(runif(10000,-115000.0))
+
+z <- datasets::volcano
+txtimage(z, alphabet = 0:9)
+txtimage(z, 20, 10, yaxis = 'd', transpose = FALSE, alphabet = ' .:-+=#')
+z[10,10] <- +Inf
+stopifnot(inherits(try(txtimage(z), TRUE), 'try-error'))
+#z[10,10] <- NA # FIXME: fails because of fft resampling
+#z[11,11] <- NaN
+#txtimage(z, na.char = '?')
