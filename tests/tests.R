@@ -29,6 +29,6 @@ txtimage(z, alphabet = 0:9)
 txtimage(z, 20, 10, yaxis = 'd', transpose = FALSE, alphabet = ' .:-+=#')
 z[10,10] <- +Inf
 stopifnot(inherits(try(txtimage(z), TRUE), 'try-error'))
-#z[10,10] <- NA # FIXME: fails because of fft resampling
-#z[11,11] <- NaN
-#txtimage(z, na.char = '?')
+z[10,10] <- NA # FIXME: fails because of fft resampling
+z[11,11] <- NaN
+txtimage(z, na.char = '?')
