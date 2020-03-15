@@ -7,12 +7,16 @@
   user-supplied alphabet as a palette of sorts.
 }
 \usage{
-  txtimage(z, width, height, yaxis, transpose, na.char, alphabet)
+  txtimage(
+    z, width, height, yaxis = c('up', 'down'), transpose = TRUE,
+    na.char = ' ', alphabet = c(0:9, letters, LETTERS), Lanczos = 3
+  )
 }
 \arguments{
   \item{z}{
     Numeric matrix containing values to be plotted. \code{NA} and
-    \code{NaN} are allowed, but infinities cause an error.
+    \code{NaN} are allowed, but infinities, being impossible to scale,
+    cause an error.
   }
   \item{width}{
     Desired width in characters. Defaults to full screen (by means of
@@ -20,8 +24,9 @@
     in \code{z}, whichever is less.
   }
   \item{height}{
-    Desired height in characters. Defaults to 25/80 of \code{width} or
-    number of rows (columns if transposed) in \code{z}, whichever is less.
+    Desired height in characters. Defaults to \eqn{25/80} of \code{width}
+    or number of rows (columns if transposed) in \code{z}, whichever
+    is less.
   }
   \item{yaxis}{
     Direction of the Y axis, \code{"up"} or \code{"down"}. Defaults to
@@ -41,6 +46,11 @@
     multi-character string or a vector of single-character strings.
     Defaults to \code{c(0:9, letters, LETTERS)}.
   }
+  \item{Lanczos}{
+    Positive integer defining the size of the Lanczos filter kernel. Given
+    a value of \eqn{a}, the windowed sinc kernel will have \eqn{2a-1}
+    lobes.
+  }
 }
 \details{
   By default, \code{txtimage} mimics the behaviour of \code{image},
@@ -49,11 +59,23 @@
   mimic matrix \code{print} instead (rows arranged vertically from top to
   bottom) by specifying \code{yaxis} and \code{image.transpose} arguments.
 
-  If requested \code{width} or \code{height} is less than dimensions
-  of the matrix, it is resampled using \code{fft} by discarding the
-  unnecessary high frequencies in the frequency domain and performing
-  the inverse transformation. Which means that, when resampling, the
-  rows and columns are assumed to correspond to a uniform linear grid.
+  If requested \code{width} or \code{height} is different from dimensions
+  of the matrix, it is resampled using the Lanczos filter:
+
+  \deqn{%
+    L(x) = \mathrm{sinc}(x) \, \mathrm{sinc}(x/a) \, | x < a |
+  }{%
+    L(x) = sinc(x) sinc(x/a) |x < a|
+  }
+  \deqn{%
+    S(x) = \sum_{i = \lfloor x \rfloor - a + 1}^{\lfloor x \rfloor + a} %
+      s_i L(x - i)
+  }{%
+    S(x) = sum(s[floor(x) + (1 - a):a] * L(x - floor(x) + (1 - a):a))
+  }
+
+  When resampling, the rows and columns are assumed to correspond to a
+  uniform linear grid.
 }
 \value{
   The function is called for its side effect of printing the textual
