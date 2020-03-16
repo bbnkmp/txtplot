@@ -68,10 +68,9 @@
     L(x) = sinc(x) sinc(x/a) |x < a|
   }
   \deqn{%
-    S(x) = \sum_{i = \lfloor x \rfloor - a + 1}^{\lfloor x \rfloor + a} %
-      s_i L(x - i)
+    S_{ij} = \sum_{k, l} s_{kl} L \left( i - \frac{k}{r} \right) L \left(j - \frac{l}{r} \right)
   }{%
-    S(x) = sum(s[floor(x) + (1 - a):a] * L(x - floor(x) + (1 - a):a))
+    S[i, j] = sum(s[k, l] * tcrossprod(L(i - k/r), L(j - l/r)))
   }
 
   When resampling, the rows and columns are assumed to correspond to a

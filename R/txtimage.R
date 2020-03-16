@@ -9,17 +9,14 @@
   # S(x) = \sum_{i = \floor{x} - a + 1}^{\floor{x} + a} s[i] L(x - i)
   ret <- matrix(NA, height, width)
   for (i in 1:height) for (j in 1:width) {
-    # get coordinates of new points in terms of original image indices
-    x <- (i - 1) / (height - 1) * (nrow(z) - 1) + 1
-    y <- (j - 1) / (width - 1) * (ncol(z) - 1) + 1
-    # original image indices to sum the Lanczos kernel over
-    # (make sure to clamp values outside the image)
-    ii <- max(1, floor(x) - a + 1):min(nrow(z), floor(x) + a)
-    jj <- max(1, floor(y) - a + 1):min(ncol(z), floor(y) + a)
-    # NB: L(x,y) = L(x) * L(y)
-    ret[i,j] <- sum(
-      tcrossprod(.Lanczos(x - ii, a), .Lanczos(y - jj, a)) * z[ii, jj]
+    kernel <- tcrossprod(
+      # L(x,y) = L(x) * L(y)
+      # the Lanczos kernel argument is in terms of new coordinates
+      .Lanczos(i - 1 - (1:nrow(z) - 1) * (height - 1) / (nrow(z) - 1), a),
+      .Lanczos(j - 1 - (1:ncol(z) - 1) * (width - 1) / (ncol(z) - 1), a)
     )
+    # normalise to alpha channel to avoid darkening
+    ret[i,j] <- sum(kernel * z) / sum(kernel)
   }
   ret
 }
@@ -28,8 +25,10 @@ txtimage <- function(
   z, width, height, yaxis = c('up', 'down'), transpose = TRUE, na.char = ' ',
   alphabet = c(0:9, letters, LETTERS), Lanczos = 3
 ) {
-  stopifnot(!is.infinite(z)) # check for +/- Inf before performing any computations involving range()
-  stopifnot(Lanczos > 0, Lanczos == round(Lanczos)) # the parameter of the kernel must be nonnegative integer
+  # check for +/- Inf before performing any computations involving range()
+  stopifnot(!is.infinite(z))
+  # the kernel parameter of must be a nonnegative integer
+  stopifnot(length(Lanczos) == 1, Lanczos > 0, Lanczos == round(Lanczos))
 
   # alphabet could be either a multi-character string or a vector of characters
   if (length(alphabet) == 1) alphabet <- strsplit(alphabet, NULL)[[1]]
