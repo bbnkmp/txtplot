@@ -98,7 +98,7 @@
   Ivan Krylov
 }
 \seealso{
-  \code{image}
+  \code{symnum}, \code{image}
 }
 \references{
   Szeliski, R. (2010) \emph{Computer Vision: Algorithms and Applications.}
