@@ -1,14 +1,15 @@
 Package: txtplot
 Type: Package
-Title: Text based plots
+Title: Text Based Plots
 Version: 1.0-4
 Date: 2020-03-08
-Authors@R: person("Bjoern", "Bornkamp", email = "bbnkmp@mail.de", comment = c(ORCID = "0000-0002-6294-8185"),
-                  role = c("aut", "cre"))
+Authors@R: c(person("Bjoern", "Bornkamp", email = "bbnkmp@mail.de", comment = c(ORCID = "0000-0002-6294-8185"),
+                  role = c("aut", "cre")),
+             person("Ivan", "Krylov",email = "", role = c("ctb"), comment = "txtimage"))    
 Description: Provides functions to produce rudimentary ascii graphics
         directly in the terminal window. Provides a basic plotting
         function (and equivalents of curve, density, acf and barplot)
-        as well as a boxplot function.
+        as well as boxplot and image functions.
 License: LGPL
 LazyLoad: yes
 Packaged: 2012-07-24 23:11:16 UTC; bjoern

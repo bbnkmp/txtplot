@@ -86,7 +86,7 @@
   returns the resulting character matrix.
 }
 \note{
-  Resampling constant singnals may produce rounding errors that get
+  Resampling constant signals may produce rounding errors that get
   greatly amplified after scaling them to \code{diff(range(z))}.
   This is compensated by rounding the result of the rounding to
   just enough significant digits to give different indices for all
