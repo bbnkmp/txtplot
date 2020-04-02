@@ -9,7 +9,7 @@
 \usage{
   txtimage(
     z, width, height, yaxis = c('up', 'down'), transpose = TRUE,
-    na.char = ' ', alphabet = 0:9, Lanczos = 3
+    legend = TRUE, na.char = ' ', alphabet = 0:9, Lanczos = 3
   )
 }
 \arguments{
@@ -38,6 +38,12 @@
     Whether to arrange rows by the X axis, like \code{image}
     does.  Defaults to \code{TRUE}.
   }
+  \item{legend}{
+    Whether to print the legend under the plot.  If set, the returned
+    object will have the \code{'cuts'} and \code{'alphabet'} attributes
+    set containing the values separating the intervals and characters
+    used for the intervals, respectively.
+  }
   \item{na.char}{
     Character to substitute for values satisfying \code{is.na}.  A warning
     is produced if \code{na.char} is found in the \code{alphabet} in
@@ -51,7 +57,9 @@
   \item{Lanczos}{
     Positive integer defining the size of the Lanczos filter kernel.
     Given a value of \eqn{a}, the windowed sinc kernel will have
-    \eqn{2a-1} lobes.
+    \eqn{2a-1} lobes.  Increasing the value may lead to better frequency
+    response, but cause worse performance and wider undefined zones when
+    the input contains \code{NA}s.
   }
 }
 \details{
@@ -62,7 +70,8 @@
   bottom) by specifying \code{yaxis} and \code{image.transpose} arguments.
 
   If requested \code{width} or \code{height} is different from dimensions
-  of the matrix, it is resampled using the Lanczos filter:
+  of the matrix, it is resampled using the Lanczos filter for a given
+  downsampling ratio \eqn{r} and window parameter \eqn{a}:
 
   \deqn{%
     L(x) = \mathrm{sinc}(x) \, \mathrm{sinc}(x/a) \, | x | < a
@@ -82,16 +91,22 @@
 }
 \value{
   The function is called for its side effect of printing the textual
-  plot on the R console using \code{cat}, but it also invisibly
-  returns the resulting character matrix.
+  plot on the R console using \code{cat}, but it also invisibly returns
+  the resulting character matrix.  If \code{legend} is \code{TRUE}, the
+  \code{'cuts'} attribute contains the values separating the intervals
+  used for characters in the \code{alphabet} (the copy of which is stored
+  in the \code{'alphabet'} attribute).
 }
 \note{
-  Resampling constant signals may produce rounding errors that get
-  greatly amplified after scaling them to \code{diff(range(z))}.
-  This is compensated by rounding the result of the rounding to
-  just enough significant digits to give different indices for all
-  characters in the given alphabet.  Resampling high frequency signals
-  (e.g. \code{outer(1:200, 1:200, function(x,y) cos(x*y))} might give
+  Resampling constant signals may produce rounding errors that get greatly
+  amplified after scaling them to \code{diff(range(z))}.  For constant
+  signals this is compensated by not allowing the resampling process to
+  increase the range of the signal, but if the range of the matrix values
+  is already really small (comparable to \code{.Machine$double.eps},
+  but not zero), the result of resampling process may not make sense.
+
+  Resampling high frequency signals (e.g.
+  \code{outer(1:200, 1:200, function(x,y) cos(x*y))}) might give
   hard-to-interpret results.
 }
 \author{
