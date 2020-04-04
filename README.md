@@ -171,7 +171,7 @@ Legend: 1=rand1, 2=rand2, 3=rand3
 
 Text based image plots (contributed by Ivan Krylov)
 ```r
-txtimage(datasets::volcano)
+txtimage(datasets::volcano, legend = FALSE)
 ```
 ```
 01111111111111111111111111111111111111111111000010000000000000000000000000000000
@@ -202,9 +202,10 @@ txtimage(datasets::volcano)
 ```
 ```r
 ## this works if your terminal supports shade/block characters
-txtimage(datasets::volcano, alphabet = " \u2591\u2592\u2593\u2588")
+txtimage(datasets::volcano, alphabet = " \u2591\u2592\u2593\u2588", legend = TRUE)
 ```
 ```
+                                                                                
                           ░░░░                                                  
                  ░░░░░░░░░░░░░░░░░░░                                            
          ░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░                                    
@@ -227,6 +228,8 @@ txtimage(datasets::volcano, alphabet = " \u2591\u2592\u2593\u2588")
           ░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░            
            ░░░░░░░░▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░             
             ░░░░░░░░▒▒▒▒▒▒░░░░░░░░░░ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░              
-            ░░░░░░░░░░░░░░░░░░            ░░░░░░░░░░  ░░░░░░░░░░░░              
+            ░░░░░░░░░░░░░░░░░░            ░░░░░░░░░   ░░░░░░░░░░░░              
              ░░░░░░░░░░░░░░░░                ░░░░       ░░░░░░░░░               
+
+ 94 ‘ ’ 114 ‘░’ 134 ‘▒’ 154 ‘▓’ 174 ‘█’ 194 
 ```

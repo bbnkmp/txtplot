@@ -7,10 +7,8 @@
   user-supplied alphabet as a palette of sorts.
 }
 \usage{
-  txtimage(
-    z, width, height, yaxis = c('up', 'down'), transpose = TRUE,
-    legend = TRUE, na.char = ' ', alphabet = 0:9, Lanczos = 3
-  )
+txtimage(z, width, height, yaxis = c('up', 'down'), transpose = TRUE,
+         legend = TRUE, na.char = ' ', alphabet = 0:9, Lanczos = 3)
 }
 \arguments{
   \item{z}{
@@ -117,13 +115,13 @@
 }
 \references{
   Szeliski, R. (2010) \emph{Computer Vision: Algorithms and Applications.}
-  \url{http://szeliski.org/Book/} Section 3.5.2: Decimation.
+  Section 3.5.2: Decimation.
 }
 \examples{
   txtimage(datasets::volcano)
   \dontrun{
-    # try this if your terminal supports shade/block characters
-    txtimage(datasets::volcano, alphabet = " \u2591\u2592\u2593\u2588")
+  ## try this if your terminal supports shade/block characters
+  txtimage(datasets::volcano, alphabet = " \u2591\u2592\u2593\u2588")
   }
 }
 \keyword{hplot}
