@@ -1,3 +1,4 @@
 importFrom("grDevices", "boxplot.stats")
 importFrom("stats", "acf", "density", "na.fail")
+importFrom("Matrix", "Matrix", "colSums")
 export(txtplot, txtdensity, txtcurve, txtacf, txtbarchart, txtboxplot, txtimage)
