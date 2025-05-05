@@ -10,12 +10,12 @@
 
 .resample <- function(z, width, height, a) {
   # L(x,y) = L(x) * L(y) for every combination of pixels
-  kernels <- Matrix(vapply(
+  kernels <- Matrix::Matrix(vapply(
     seq(1, width),
     # the Lanczos kernel argument is in terms of new coordinates
     function(j) .Lanczos(j - 1 - (seq(1, ncol(z)) - 1) * (width - 1) / (ncol(z) - 1), a),
     numeric(ncol(z))
-  ), sparse = TRUE) %x% Matrix(vapply(
+  ), sparse = TRUE) %x% Matrix::Matrix(vapply(
     seq(1, height),
     function(i) .Lanczos(i - 1 - (seq(1, nrow(z)) - 1) * (height - 1) / (nrow(z) - 1), a),
     numeric(nrow(z))
@@ -23,7 +23,7 @@
   ret <- matrix(
     replace(as.vector(z), is.na(z), 0) %*% kernels /
       # normalise to alpha channel to avoid darkening
-      colSums(kernels),
+      Matrix::colSums(kernels),
     height, width
   )
   # anything touched by a missing pixel with a nonzero weight must be missing
