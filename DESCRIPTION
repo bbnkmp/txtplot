@@ -13,6 +13,5 @@ Description: Provides functions to produce rudimentary ascii graphics
 Imports: Matrix
 License: LGPL
 LazyLoad: yes
-Packaged: 2012-07-24 23:11:16 UTC; bjoern
 Repository: CRAN
 Date/Publication: 2025-05-10
