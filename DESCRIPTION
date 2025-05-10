@@ -1,8 +1,8 @@
 Package: txtplot
 Type: Package
 Title: Text Based Plots
-Version: 1.0-4
-Date: 2020-04-04
+Version: 1.0-5
+Date: 2025-05-10
 Authors@R: c(person("Bjoern", "Bornkamp", email = "bbnkmp@mail.de",
                   role = c("aut", "cre")),
              person("Ivan", "Krylov", email = "krylov.r00t@gmail.com", role = c("ctb"), comment = "txtimage"))    
