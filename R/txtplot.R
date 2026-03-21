@@ -23,7 +23,7 @@ getRng <- function(x, perc = 0.05){
 checkValid <- function(x){
   ## remove NA and NaN for plotting
   ## throw an error for infinities
-  naind <- is.na(x)|is.nan(x)
+  naind <- is.na(x)
   if(sum(!naind) == 0) # everything NA or NaN
     stop("nothing to plot")
   Infind <- is.infinite(x)
@@ -38,6 +38,8 @@ txtplot <- function(x, y = NULL, pch="*",
                     xlab = NULL, ylab = NULL,
                     xlim = NULL, ylim = NULL){
   ## initial checks
+  if(!is.character(pch) || nchar(pch) != 1)
+    stop("pch needs to be character of length 1")
   if(!is.null(y)){
     if(length(x) != length(y))
       stop("x and y need to have same length")
@@ -45,7 +47,7 @@ txtplot <- function(x, y = NULL, pch="*",
     y <- x
     x <- 1:length(y)
   }
-  if(!is.numeric(x) | !is.numeric(y))
+  if(!is.numeric(x) || !is.numeric(y))
     stop("x and y need to be of type numeric")
   indx <- checkValid(x)
   indy <- checkValid(y)
@@ -114,7 +116,7 @@ txtplot <- function(x, y = NULL, pch="*",
   if(pwid < 6)
     stop(paste("effective plotting width <6 characters", sep=""))
   if(phgt < 6)
-    stop(paste("effective plotting heigth <6 characters", sep=""))
+    stop(paste("effective plotting height <6 characters", sep=""))
   ## increments
   xdelta <- diff(rngx)
   ydelta <- diff(rngy)  
@@ -158,12 +160,6 @@ txtplot <- function(x, y = NULL, pch="*",
       ch[indx[i] + j] <- xl[[i]][z]
       z <- z+1
     }
-    ## for(j in -fln:fln){
-    ##   if(!(ln%%2) & j == fln)
-    ##     break
-    ##   ch[indx[i] + j] <- xl[[i]][z]
-    ##   z <- z+1
-    ## }
   }
   indy <- lmar+(phgt-ytck)*(width+1)
   yl <- strsplit(ytkch, NULL)
@@ -215,7 +211,7 @@ txtplot <- function(x, y = NULL, pch="*",
 
 txtdensity <- function(x, pch = "*", width = round(options()$width*0.8),
                     height = round(0.25*width), xlab = NULL, ylab = NULL){
-  dens <- density(x, from=min(x), to=max(x))
+  dens <- density(x, from=min(x, na.rm =TRUE), to=max(x, na.rm = TRUE))
   txtplot(dens$x, dens$y, pch = pch, width = width,
           height = height, xlab = xlab, ylab = ylab)
 }
@@ -223,7 +219,7 @@ txtdensity <- function(x, pch = "*", width = round(options()$width*0.8),
 txtcurve <- function(expr, from = NULL, to = NULL, n = 101,
                      pch = "*", width = round(options()$width*0.8),
                      height = round(0.25*width), xlab = NULL, ylab = NULL){
-  if(any(is.null(c(from, to))))
+  if(is.null(from) || is.null(to))
     stop("'from' and 'to' need to be specified")
   sexpr <- substitute(expr)
   if (is.name(sexpr)) {
@@ -249,9 +245,11 @@ txtacf <- function(x, pch = "*", lag.max = 20, type = c("correlation", "covarian
                  demean = demean, plot = FALSE)
   func <- function(x,height){
     if(x > 0)
-      out <- seq(0, x, length = height)
+      out <- seq(0, x, length.out = height)
     if(x < 0)
-      out <- seq(x, 0, length = height)
+      out <- seq(x, 0, length.out = height)
+    if(x == 0)
+      out <- rep(0, length.out = height)
     out
   }
   lst <- lapply(acfplot$acf, func, height=height)

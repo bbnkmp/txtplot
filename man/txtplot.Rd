@@ -8,7 +8,7 @@
 \alias{getTicks}
 \alias{insEOL}
 \alias{drawLegend}
-\alias{checkNA}
+\alias{checkValid}
 \title{
   Ascii graphics
 }
@@ -24,7 +24,7 @@
   \code{txtacf} is a text based equivalent of the \code{acf} function
   and based on the \code{acf} function.\cr
   \code{txtbarchart} is a text based barplot and plots the
-  relative frequences of the occurences of the different levels of a
+  relative frequences of the occurrences of the different levels of a
   factor (in percent)
 }
 \usage{
@@ -53,13 +53,13 @@ txtbarchart(x, pch = "*", width = round(options()$width*0.8),
     plotting. Infinities cause an error
   }
   \item{y}{
-    numeric containing the x-values to plot (needs to be of the same
+    numeric containing the y-values to plot (needs to be of the same
     length as x). If NULL the numeric \code{x} is plotted against
     \code{1:length(x)}. NA, NaN are removed for plotting. Infinities
     cause an error
   }
   \item{pch}{
-    Plotting symbol
+    Plotting symbol (needs to be a character of length 1)
 }
   \item{width, height}{
     Width and height of the plots in points

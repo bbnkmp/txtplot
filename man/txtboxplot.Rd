@@ -18,7 +18,7 @@ txtboxplot(..., range = 1.5, legend = NULL, xlab = NULL,
   }
   \item{range}{
     This determines how far the plot whiskers extend out from the
-    box. See \code{\link{boxplot.stats}} and the \code{coef} function
+    box. See \code{\link{boxplot.stats}} and its \code{coef} argument
     for details.
   }
   \item{legend}{
